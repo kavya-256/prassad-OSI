@@ -1,0 +1,41 @@
+import random
+
+def application_layer(data):
+    return data
+
+def presentation_layer(data):
+    return data.encode('utf-8')
+
+def session_layer(data):
+    return data
+
+def transport_layer(data):
+    packets = [data[i:i+4] for i in range(0, len(data), 4)]
+    return packets
+
+def network_layer(data):
+    source_address = "192.168.1.1"
+    destination_address = "10.0.0.1"
+    return (source_address, destination_address, data)
+
+def data_link_layer(data):
+    mac_source = ':'.join(['{:02x}'.format(random.randint(0, 255)) for _ in range(6)])
+    mac_destination = ':'.join(['{:02x}'.format(random.randint(0, 255)) for _ in range(6)])
+    return (mac_source, mac_destination, data)
+
+def physical_layer(data):
+    return data
+
+def main():
+    message = "Hello, OSI Model!"
+    data = application_layer(message)
+    data = presentation_layer(data)
+    data = session_layer(data)
+    data = transport_layer(data)
+    data = network_layer(data)
+    data = data_link_layer(data)
+    data = physical_layer(data)
+    print("Message sent successfully!")
+
+if __name__ == "__main__":
+    main()
